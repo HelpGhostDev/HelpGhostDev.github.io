@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <script src='ConnectWiseHostedAPI.1.0.js'></script>
+
+    <script language='javascript'>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            (function () {
+                var logger = document.getElementById('log'); // Replace 'log' with the ID of your HTML element
+                console.log = function (message) {
+                    if (typeof message == 'object') {
+                        logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(message) : message) + '<br />';
+                    } else {
+                        logger.innerHTML += message + '<br />';
+                    }
+                }
+            })();
+
+            onReady();
+        });
+
+        function onReady() {
+            console.log("ONREADY INIT")
+            connectWiseClientApi = new ConnectWiseHostedAPI('https://8cba-137-184-117-101.ngrok-free.app',
+                {
+                    "eventHandlers" :[
+                        {"event": "onLoad", "callback": onLoadCallback},
+                        {"event": "beforeSave", "callback": beforeSaveCallback}
+                    ]
+                }
+                ,true);
+        }
+
+        function onLoadCallback(data) {
+            console.log("TEST onload: ", data)
+        }
+
+        function beforeSaveCallback(data) {
+            console.log("TEST beforeSave: ", data);
+        }
+
+        function testClick() {
+            console.log("REQUESTING MEMBER AUTHENTICATION");
+            connectWiseClientApi.post({"request" : "getMemberAuthentication"}, function(data) {
+                console.log("TEST user DATA: ", data)
+            });
+        }
+
+
+    </script>
+</HEAD>
+<BODY>
+<h1>ConnectwiseHostedAPI.1.0.js example</h1>
+
+<button onClick="testClick()">TEST</button>
+
+<h2>Log</h2>
+<div id="log" style="border: 1px solid black; padding: 10px; height: 200px; overflow-y: scroll;">
+
+</div>
+</BODY>
+</HTML>
