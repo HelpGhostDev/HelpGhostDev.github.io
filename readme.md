@@ -1,3 +1,8 @@
+# Run Locally
+```
+npx http-server .
+ngrok http http://localhost:8080
+```
 # ConnectWiseHostedApi Client API
 
 The ConnectWiseHostedApi Client API is a JavaScript script hosting of your own web application in an iframe in ConnectWise in either a pod on the screen or a tab for a specific screen or a custom menu entry. Your application will receive messages baed on various ConnectWiseHostedApi events.
